@@ -35,18 +35,37 @@ for j in range(1, len(table)):
 Dict={header:column for (header,column) in col}
 df = pd.DataFrame(Dict)
 
-def add_title(name, genre, year, imdb, date_added):
-        title = Movies.objects.get_or_create(name=name, genre=genre, year=year, imdb=imdb, date_added=date_added)
+title = []
+type = []
+for i in df['Titel']:
+    if i.find('(') > 0:
+        title.append(i[:i.find('(')-1])
+        type.append('series')
+    else:
+        title.append(i)
+        type.append('movie')
+
+df['title'] = title
+df['type'] = type
+
+def add_title(name, genre, year, imdb, date_added, type):
+        title = Movies.objects.get_or_create(name=name,
+                                             genre=genre,
+                                             year=year,
+                                             imdb=imdb,
+                                             date_added=date_added,
+                                             type=type)
         return title
 
 def populate():
 
     for row, i in enumerate(df['Titel']):
-        add_title(name=df['Titel'][row],
+        add_title(name=df['title'][row],
         genre=df['Genre'][row],
         year=df['Jaar'][row],
         imdb=df['IMDb *'][row],
-        date_added=df['Nieuw op:'][row])
+        date_added=df['Nieuw op:'][row],
+        type=df['type'][row])
 
 if __name__ == '__main__':
     print ("Starting database population script...")
