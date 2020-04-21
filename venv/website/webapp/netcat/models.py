@@ -58,10 +58,24 @@ class Movies(models.Model):
         return self.name
 
 class Titles(models.Model):
-    name = models.CharField(max_length=200, null=True)
-    genre = models.CharField(max_length=200, null=True)
+    title = models.CharField(max_length=200, null=True)
     year = models.CharField(max_length=200, null=True)
+    released = models.DateField(null=True)
+    runtime = models.CharField(max_length=200, null=True)
+    type = models.CharField(max_length=200, null=True)
+    genre = models.CharField(max_length=200, null=True)
+    actors = models.CharField(max_length=200, null=True)
+    director = models.CharField(max_length=200, null=True)
+    writers = models.CharField(max_length=200, null=True)
+    plot = models.CharField(max_length=500, null=True)
+    language = models.CharField(max_length=500, null=True)
+    country = models.CharField(max_length=500, null=True)
+    awards = models.CharField(max_length=500, null=True)
     imdb = models.CharField(max_length=200, null=True)
+    metascore = models.CharField(max_length=200, null=True)
+    rotten_tomatoes = models.CharField(max_length=200, null=True)
+    boxoffice = models.CharField(max_length=200, null=True)
+    imdbid = models.CharField(max_length=200, null=True)
 
     def __str__(self):
         return self.name
